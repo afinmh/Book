@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Pokemon Magazine</title>
+</head>
+
+<body>
+  <div class="flipbook-container">
+    <div class="flipbook">
+      <div class="hard"><img src="images/1.png" alt="Cover"></div>
+      <div class="hard test"></div>
+      <div class="test"></div>
+      <div><img src="images/2.png" alt=""></div>
+      <div><img src="images/3.png" alt=""></div>
+      <div class="test"></div>
+      <div><img src="images/4.png" alt=""></div>
+      <div><img src="images/5.png" alt=""></div>
+      <div><img src="images/6.png" alt=""></div>
+      <div><img src="images/7.png" alt=""></div>
+      <div><img src="images/8.png" alt=""></div>
+      <div><img src="images/9.png" alt=""></div>
+      <div><img src="images/10.png" alt=""></div>
+      <div><img src="images/11.png" alt=""></div>
+      <div><img src="images/12.png" alt=""></div>
+      <div><img src="images/13.png" alt=""></div>
+      <div><img src="images/14.png" alt=""></div>
+      <div class="test"></div> <div class="hard test"></div>
+      <div class="hard"><img src="images/15.png" alt=""></div>
+    </div>
+  </div>
+
+<div class="navigation-bar">
+  <div class="nav-group-left">
+    <button id="first-btn" aria-label="First Page">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path><path d="M18 6h-2v12h2z"></path></svg>
+    </button>
+    <button id="prev-btn" aria-label="Previous Page">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+    </button>
+  </div>
+  <div class="nav-group-right">
+    <button id="next-btn" aria-label="Next Page">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
+    </button>
+    <button id="last-btn" aria-label="Last Page">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path><path d="M6 6h2v12H6z"></path></svg>
+    </button>
+  </div>
+</div>
+
+  <audio id="page-audio" src="audio/page-flip.wav" preload="auto"></audio>
+  <script src="jquery.js"></script>
+  <script src="turn.js"></script>
+
+  <script>
+    if (window.innerWidth < 768) {
+  // Jika ya, cari semua elemen dengan class 'test' dan HAPUS dari halaman
+  $('.test').remove();
+}
+   (function() {
+  // --- DEFINISI VARIABEL UTAMA ---
+  var $fb = $(".flipbook");
+  var audio = document.getElementById('page-audio');
+
+  // -- TAMBAHKAN BARIS INI --
+  // Beri class 'page-is-empty' ke semua div kosong di dalam flipbook
+  $('.flipbook > div:empty').addClass('page-is-empty');
+
+  /**
+   * Mengatur ukuran dan tampilan flipbook (single/double page)
+   * agar pas di dalam layar tanpa terpotong.
+   */
+  function setupFlipbook() {
+    var container = $('.flipbook-container');
+    var containerWidth = container.width();
+    var containerHeight = container.height();
+    var options = {};
+
+    // Cek apakah tampilan mobile (lebar layar < 768px)
+    if (window.innerWidth < 768) {
+      options.display = 'single';
+      var bookRatio = (765 / 2) / 540;
+
+      var newWidth = containerWidth * 0.9;
+      var newHeight = newWidth / bookRatio;
+
+      if (newHeight > containerHeight * 0.9) {
+        newHeight = containerHeight * 0.9;
+        newWidth = newHeight * bookRatio;
+      }
+      
+      options.width = newWidth;
+      options.height = newHeight;
+
+    } else { // Tampilan Desktop
+      options.display = 'double';
+      var bookRatio = 765 / 540;
+      
+      var newWidth = containerWidth * 0.9;
+      var newHeight = newWidth / bookRatio;
+
+      if (newHeight > containerHeight * 0.9) {
+        newHeight = containerHeight * 0.9;
+        newWidth = newHeight * bookRatio;
+      }
+      
+      if (newWidth > 765) {
+        newWidth = 765;
+        newHeight = 540;
+      }
+      
+      options.width = newWidth;
+      options.height = newHeight;
+    }
+    
+    $fb.turn('display', options.display);
+    $fb.turn('size', options.width, options.height);
+  }
+
+  function playFlipOnce() {
+    if (!audio) return;
+    try { audio.currentTime = 0; audio.play().catch(function() {}); } catch (e) {}
+  }
+
+  // Inisialisasi library Turn.js
+  $fb.turn({
+    autoCenter: true,
+    elevation: 50,
+    duration: 800,
+    // Penting: Abaikan halaman yang diberi class 'page-is-empty'
+    ignore: '.page-is-empty'
+  });
+
+  var totalPages = $fb.turn('pages');
+
+  // Event listener untuk tombol navigasi
+  $("#first-btn").on("click", function() { $fb.turn('page', 1); });
+  $("#prev-btn").on("click", function() { $fb.turn('previous'); });
+  $("#next-btn").on("click", function() { $fb.turn('next'); });
+  $("#last-btn").on("click", function() { $fb.turn('page', totalPages); });
+
+  // Event listener untuk flipbook
+  $fb.on('turning', function(e, page, view) {
+    playFlipOnce();
+  });
+
+  // Event listener untuk window resize
+  $(window).on("resize", setupFlipbook);
+
+  // Panggilan Awal
+  setupFlipbook();
+
+})();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #2D3748;
+  overflow: hidden;
+}
+
+.flipbook-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flipbook .page {
+  background: #fffdf5;
+  border: 1px solid rgba(0, 0, 0, 0.11);
+}
+
+.page img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- Gaya Navigasi Mobile Modern --- */
+
+/* --- Gaya Navigasi Minimalis, Elegan, Modern --- */
+
+.navigation-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.nav-group-left, .nav-group-right {
+  display: flex;
+  gap: 15px;
+}
+
+.navigation-bar button {
+  /* Bentuk dasar: lingkaran transparan dengan border tipis */
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  
+  /* Efek transisi yang sangat halus */
+  transition: all 0.3s ease;
+  
+  /* Styling konten di dalamnya */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* Ikon di dalam tombol */
+.navigation-bar button svg {
+  fill: rgba(255, 255, 255, 0.7); /* Warna ikon sedikit redup */
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s ease;
+}
+
+/* --- EFEK HOVER YANG ELEGAN --- */
+
+.navigation-bar button:hover {
+  background: rgba(255, 255, 255, 0.05); /* Latar belakang menyala sedikit */
+  border-color: rgba(255, 255, 255, 0.5); /* Border menjadi lebih terang */
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); /* Efek Gllow/bercahaya */
+  transform: translateY(-3px); /* Sedikit terangkat */
+}
+
+/* Saat hover, ikon menjadi terang */
+.navigation-bar button:hover svg {
+  fill: rgba(255, 255, 255, 1);
+}
+
+/* Efek saat tombol ditekan */
+.navigation-bar button:active {
+  transform: translateY(-1px) scale(0.96);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* --- Logika Responsive --- */
+
+/* Sembunyikan navigasi di layar tablet/desktop */
+@media (min-width: 768px) {
+  .navigation-bar {
+    display: none;
+  }
+}
+
+/* --- Logika Responsive --- */
+
+/* Sembunyikan navigasi di layar tablet/desktop */
+@media (min-width: 768px) {
+  .navigation-bar {
+    display: none;
+  }
+}
