@@ -10,6 +10,14 @@
 </head>
 
 <body>
+  <div id="splash-screen" role="status" aria-live="polite">
+    <div class="splash-content">
+      <p class="splash-title"><span class="splash-label">Loading..</span><span id="loading-percent">0%</span></p>
+      <div class="loading-bar" aria-hidden="true">
+        <div class="loading-bar-fill" id="loading-bar-fill"></div>
+      </div>
+    </div>
+  </div>
   <div class="flipbook-container">
     <div class="flipbook">
       <div class="hard"><img src="images/1.png" alt="Cover"></div>
@@ -34,22 +42,45 @@
     </div>
   </div>
 
-<div class="navigation-bar">
-  <div class="nav-group-left">
-    <button id="first-btn" aria-label="First Page">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path><path d="M18 6h-2v12h2z"></path></svg>
+<!-- Desktop Vertical Navigation (always visible on desktop) -->
+<div class="nav-vertical" aria-label="Book navigation">
+  <div class="nav-buttons">
+    <button class="nav-btn nav-first" aria-label="First Page" title="First">
+      <span>&lt;|</span>
     </button>
-    <button id="prev-btn" aria-label="Previous Page">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+    <button class="nav-btn nav-prev" aria-label="Previous Page" title="Prev">
+      <span>&lt;</span>
+    </button>
+    <!-- Site link button inserted between prev and next -->
+    <a class="nav-btn nav-site" href="https://afinmh.vercel.app" target="_blank" rel="noopener" aria-label="Visit website" title="Visit website">
+      <!-- simple globe / external link SVG -->
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+        <path fill="#111" d="M12 2a10 10 0 100 20 10 10 0 000-20zm5.93 7h-2.07a15.9 15.9 0 00-1.2-3.12A8.01 8.01 0 0117.93 9zM12 4.06c.9 1.06 1.66 2.5 2.22 4.06H9.78C10.34 6.56 11.1 5.12 12 4.06zM4.07 11a6.98 6.98 0 010-2h2.07c.06.67.17 1.33.33 2H4.07zM6.3 15.06c-.16-.66-.27-1.33-.33-2h4.06c.21 1.06.52 2.06.86 3.06-1.32.3-2.79.3-4.59-.06zM12 19.94c-.9-1.06-1.66-2.5-2.22-4.06h4.44c-.56 1.56-1.32 3-2.22 4.06zM14.94 15c.21-1.06.52-2.06.86-3.06h3.13a8.01 8.01 0 01-3.99 3.06zM15.87 10c-.34-1-.65-2-0.86-3H9c-.21 1-.52 2-0.86 3h7.73z"/>
+      </svg>
+    </a>
+    <button class="nav-btn nav-next" aria-label="Next Page" title="Next">
+      <span>&gt;</span>
+    </button>
+    <button class="nav-btn nav-last" aria-label="Last Page" title="Last">
+      <span>|&gt;</span>
     </button>
   </div>
-  <div class="nav-group-right">
-    <button id="next-btn" aria-label="Next Page">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
-    </button>
-    <button id="last-btn" aria-label="Last Page">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path><path d="M6 6h2v12H6z"></path></svg>
-    </button>
+</div>
+
+<!-- Mobile Bottom Navigation (always visible horizontal bar) -->
+<div class="navigation-bar mobile-nav" aria-label="Book navigation mobile">
+  <div class="mobile-nav-buttons">
+    <button class="nav-btn nav-first" aria-label="First Page"><span>&lt;|</span></button>
+    <button class="nav-btn nav-prev" aria-label="Previous Page"><span>&lt;</span></button>
+    <!-- Site link button for mobile nav -->
+    <a class="nav-btn nav-site" href="https://afinmh.vercel.app" target="_blank" rel="noopener" aria-label="Visit website" title="Visit website">
+      <!-- simple globe / external link SVG -->
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+        <path fill="#111" d="M12 2a10 10 0 100 20 10 10 0 000-20zm5.93 7h-2.07a15.9 15.9 0 00-1.2-3.12A8.01 8.01 0 0117.93 9zM12 4.06c.9 1.06 1.66 2.5 2.22 4.06H9.78C10.34 6.56 11.1 5.12 12 4.06zM4.07 11a6.98 6.98 0 010-2h2.07c.06.67.17 1.33.33 2H4.07zM6.3 15.06c-.16-.66-.27-1.33-.33-2h4.06c.21 1.06.52 2.06.86 3.06-1.32.3-2.79.3-4.59-.06zM12 19.94c-.9-1.06-1.66-2.5-2.22-4.06h4.44c-.56 1.56-1.32 3-2.22 4.06zM14.94 15c.21-1.06.52-2.06.86-3.06h3.13a8.01 8.01 0 01-3.99 3.06zM15.87 10c-.34-1-.65-2-0.86-3H9c-.21 1-.52 2-0.86 3h7.73z"/>
+      </svg>
+    </a>
+    <button class="nav-btn nav-next" aria-label="Next Page"><span>&gt;</span></button>
+    <button class="nav-btn nav-last" aria-label="Last Page"><span>|&gt;</span></button>
   </div>
 </div>
 
@@ -59,103 +90,253 @@
 
   <script>
     if (window.innerWidth < 768) {
-  // Jika ya, cari semua elemen dengan class 'test' dan HAPUS dari halaman
-  $('.test').remove();
-}
-   (function() {
-  // --- DEFINISI VARIABEL UTAMA ---
-  var $fb = $(".flipbook");
-  var audio = document.getElementById('page-audio');
-
-  // -- TAMBAHKAN BARIS INI --
-  // Beri class 'page-is-empty' ke semua div kosong di dalam flipbook
-  $('.flipbook > div:empty').addClass('page-is-empty');
-
-  /**
-   * Mengatur ukuran dan tampilan flipbook (single/double page)
-   * agar pas di dalam layar tanpa terpotong.
-   */
-  function setupFlipbook() {
-    var container = $('.flipbook-container');
-    var containerWidth = container.width();
-    var containerHeight = container.height();
-    var options = {};
-
-    // Cek apakah tampilan mobile (lebar layar < 768px)
-    if (window.innerWidth < 768) {
-      options.display = 'single';
-      var bookRatio = (765 / 2) / 540;
-
-      var newWidth = containerWidth * 0.9;
-      var newHeight = newWidth / bookRatio;
-
-      if (newHeight > containerHeight * 0.9) {
-        newHeight = containerHeight * 0.9;
-        newWidth = newHeight * bookRatio;
-      }
-      
-      options.width = newWidth;
-      options.height = newHeight;
-
-    } else { // Tampilan Desktop
-      options.display = 'double';
-      var bookRatio = 765 / 540;
-      
-      var newWidth = containerWidth * 0.9;
-      var newHeight = newWidth / bookRatio;
-
-      if (newHeight > containerHeight * 0.9) {
-        newHeight = containerHeight * 0.9;
-        newWidth = newHeight * bookRatio;
-      }
-      
-      if (newWidth > 765) {
-        newWidth = 765;
-        newHeight = 540;
-      }
-      
-      options.width = newWidth;
-      options.height = newHeight;
+      $('.test').remove();
     }
-    
-    $fb.turn('display', options.display);
-    $fb.turn('size', options.width, options.height);
-  }
 
-  function playFlipOnce() {
-    if (!audio) return;
-    try { audio.currentTime = 0; audio.play().catch(function() {}); } catch (e) {}
-  }
+    (function() {
+      var $fb = $(".flipbook");
+      var audio = document.getElementById('page-audio');
+      var $splash = $("#splash-screen");
+      var $loadingPercent = $("#loading-percent");
+      var $loadingBarFill = $("#loading-bar-fill");
+      var totalAssets = 0;
+      var loadedAssets = 0;
+      var loadingComplete = false;
+      var animationFrameId = null;
+  var minAnimationDuration = 1000; // durasi minimum animasi progres
+  var splashHoldAfterComplete = 400; // jeda sebelum splash menghilang setelah 100%
+      var animationStart = null;
+      var displayedPercent = 0;
+      var targetPercent = 0;
+      var splashHidden = false;
 
-  // Inisialisasi library Turn.js
-  $fb.turn({
-    autoCenter: true,
-    elevation: 50,
-    duration: 800,
-    // Penting: Abaikan halaman yang diberi class 'page-is-empty'
-    ignore: '.page-is-empty'
-  });
+      function renderProgress(percent) {
+        var clamped = Math.max(0, Math.min(100, Math.round(percent)));
+        if ($loadingPercent.length) {
+          $loadingPercent.text(clamped + "%");
+        }
+        if ($loadingBarFill.length) {
+          $loadingBarFill.css("width", clamped + "%");
+        }
+      }
 
-  var totalPages = $fb.turn('pages');
+      function requestProgressAnimation() {
+        if (animationFrameId === null) {
+          animationFrameId = requestAnimationFrame(animateProgress);
+        }
+      }
 
-  // Event listener untuk tombol navigasi
-  $("#first-btn").on("click", function() { $fb.turn('page', 1); });
-  $("#prev-btn").on("click", function() { $fb.turn('previous'); });
-  $("#next-btn").on("click", function() { $fb.turn('next'); });
-  $("#last-btn").on("click", function() { $fb.turn('page', totalPages); });
+      function animateProgress(timestamp) {
+        if (animationStart === null) {
+          animationStart = timestamp;
+        }
 
-  // Event listener untuk flipbook
-  $fb.on('turning', function(e, page, view) {
-    playFlipOnce();
-  });
+        var elapsed = timestamp - animationStart;
+        var maxAllowed = elapsed >= minAnimationDuration ? 100 : (elapsed / minAnimationDuration) * 100;
+        var allowedTarget = Math.min(targetPercent, maxAllowed);
 
-  // Event listener untuk window resize
-  $(window).on("resize", setupFlipbook);
+        if (allowedTarget > displayedPercent) {
+          displayedPercent = allowedTarget;
+          renderProgress(displayedPercent);
+        }
 
-  // Panggilan Awal
-  setupFlipbook();
+        maybeHideSplash(timestamp);
 
-})();
+        var continueAnimation = (displayedPercent < targetPercent) ||
+          (!loadingComplete) ||
+          (loadingComplete && (displayedPercent < 100 || elapsed < minAnimationDuration));
+
+        if (continueAnimation) {
+          animationFrameId = requestAnimationFrame(animateProgress);
+        } else {
+          animationFrameId = null;
+        }
+      }
+
+      function maybeHideSplash(currentTimestamp) {
+        if (splashHidden || !loadingComplete) return;
+        var elapsedSinceStart;
+        if (animationStart === null) {
+          elapsedSinceStart = 0;
+        } else if (typeof currentTimestamp === "number") {
+          elapsedSinceStart = currentTimestamp - animationStart;
+        } else {
+          elapsedSinceStart = performance.now() - animationStart;
+        }
+        var fullyReady = (displayedPercent >= 100 && elapsedSinceStart >= minAnimationDuration);
+        if (fullyReady) {
+          // Tambahkan jeda ekstra sebelum menghilang
+          splashHidden = true;
+          setTimeout(function(){ $splash.addClass("splash-hidden"); }, splashHoldAfterComplete);
+        }
+      }
+
+      function updateProgressTarget() {
+        var percent = totalAssets === 0 ? 100 : (loadedAssets / totalAssets) * 100;
+        targetPercent = Math.max(targetPercent, percent);
+        targetPercent = Math.min(100, targetPercent);
+        requestProgressAnimation();
+      }
+
+      function finalizeLoading() {
+        if (loadingComplete) return;
+        loadingComplete = true;
+        targetPercent = 100;
+        requestProgressAnimation();
+        initializeFlipbook();
+        maybeHideSplash();
+      }
+
+      function registerAssetLoaded() {
+        if (loadingComplete) return;
+        loadedAssets = Math.min(loadedAssets + 1, totalAssets);
+        updateProgressTarget();
+        if (loadedAssets >= totalAssets) {
+          finalizeLoading();
+        }
+      }
+
+      function preloadAssets() {
+        animationStart = null;
+        displayedPercent = 0;
+        targetPercent = 0;
+        splashHidden = false;
+        renderProgress(0);
+
+        var sources = [];
+        $fb.find("img").each(function() {
+          var src = $(this).attr("src");
+          if (src) {
+            sources.push(src);
+          }
+        });
+
+        var uniqueSources = Array.from(new Set(sources));
+        totalAssets = uniqueSources.length;
+
+        if (audio) {
+          totalAssets += 1;
+        }
+
+        if (totalAssets === 0) {
+          finalizeLoading();
+          return;
+        }
+
+        requestProgressAnimation();
+
+        uniqueSources.forEach(function(src) {
+          var img = new Image();
+          img.onload = registerAssetLoaded;
+          img.onerror = registerAssetLoaded;
+          img.src = src;
+        });
+
+        if (audio) {
+          if (audio.readyState >= 4) {
+            registerAssetLoaded();
+          } else {
+            audio.addEventListener("canplaythrough", registerAssetLoaded, { once: true });
+            audio.addEventListener("error", registerAssetLoaded, { once: true });
+            audio.load();
+          }
+        }
+      }
+
+      function initializeFlipbook() {
+        $('.flipbook > div:empty').addClass('page-is-empty');
+
+        function setupFlipbook() {
+          var container = $('.flipbook-container');
+          var containerWidth = container.width();
+          var containerHeight = container.height();
+          var options = {};
+
+          if (window.innerWidth < 768) {
+            options.display = 'single';
+            var bookRatioMobile = (765 / 2) / 540;
+
+            var newWidthMobile = containerWidth * 0.9;
+            var newHeightMobile = newWidthMobile / bookRatioMobile;
+
+            if (newHeightMobile > containerHeight * 0.9) {
+              newHeightMobile = containerHeight * 0.9;
+              newWidthMobile = newHeightMobile * bookRatioMobile;
+            }
+
+            options.width = newWidthMobile;
+            options.height = newHeightMobile;
+
+          } else {
+            options.display = 'double';
+            var bookRatioDesktop = 765 / 540;
+
+            var newWidthDesktop = containerWidth * 0.9;
+            var newHeightDesktop = newWidthDesktop / bookRatioDesktop;
+
+            if (newHeightDesktop > containerHeight * 0.9) {
+              newHeightDesktop = containerHeight * 0.9;
+              newWidthDesktop = newHeightDesktop * bookRatioDesktop;
+            }
+
+            if (newWidthDesktop > 765) {
+              newWidthDesktop = 765;
+              newHeightDesktop = 540;
+            }
+
+            options.width = newWidthDesktop;
+            options.height = newHeightDesktop;
+          }
+
+          $fb.turn('display', options.display);
+          $fb.turn('size', options.width, options.height);
+        }
+
+        function playFlipOnce() {
+          if (!audio) return;
+          try {
+            audio.currentTime = 0;
+            audio.play().catch(function() {});
+          } catch (e) {}
+        }
+
+        $fb.turn({
+          autoCenter: true,
+          elevation: 50,
+          duration: 800,
+          ignore: '.page-is-empty'
+        });
+
+        var totalPages = $fb.turn('pages');
+
+        // Bind all navigation buttons (desktop + mobile) by class
+        $(document).on('click', '.nav-first', function(){ $fb.turn('page', 1); });
+        $(document).on('click', '.nav-prev', function(){ $fb.turn('previous'); });
+        $(document).on('click', '.nav-next', function(){ $fb.turn('next'); });
+        $(document).on('click', '.nav-last', function(){ $fb.turn('page', totalPages); });
+
+        // Desktop nav is always visible (no toggle) - no handler required
+
+        // Toggle mobile nav open/close
+        $(document).on('click', '.mobile-nav-toggle', function(){
+          var $mnav = $(this).closest('.mobile-nav');
+          var open = $mnav.hasClass('open');
+          $mnav.toggleClass('open');
+          var nowOpen = !open;
+          $(this).attr('aria-expanded', nowOpen);
+        });
+
+        $fb.on('turning', function() {
+          playFlipOnce();
+        });
+
+        $(window).on("resize", setupFlipbook);
+
+        setupFlipbook();
+      }
+
+      preloadAssets();
+    })();
   </script>
 </body>
 
