@@ -318,6 +318,27 @@
         $(document).on('click', '.nav-next', function(){ $fb.turn('next'); });
         $(document).on('click', '.nav-last', function(){ $fb.turn('page', totalPages); });
 
+        // Keyboard navigation: allow ArrowLeft / ArrowRight to move pages
+        // Ignore when focus is inside an input/textarea or contenteditable element
+        $(document).on('keydown.bookNav', function(e){
+          try {
+            var active = document.activeElement;
+            var tag = active && active.tagName ? active.tagName.toLowerCase() : '';
+            var isEditable = active && (active.isContentEditable || tag === 'input' || tag === 'textarea');
+            if (isEditable) return; // don't hijack typing
+          } catch (err) {
+            // ignore and proceed
+          }
+
+          if (e.key === 'ArrowLeft') {
+            $fb.turn('previous');
+            e.preventDefault();
+          } else if (e.key === 'ArrowRight') {
+            $fb.turn('next');
+            e.preventDefault();
+          }
+        });
+
         // Desktop nav is always visible (no toggle) - no handler required
 
         // Toggle mobile nav open/close
